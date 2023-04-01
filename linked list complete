@@ -1,0 +1,288 @@
+public class linkedlists {
+    static class LL{
+        static class Node{
+            int data;
+            Node next;
+
+            public Node(int data){
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        Node head = null;
+        Node tail = null;
+
+        public void addFirst(int data){
+            Node newNode = new Node(data);
+            if(head == null){
+                head = newNode;
+                tail = newNode;
+            }
+            else{
+                newNode.next = head;
+                head =  newNode;
+            }
+        }
+
+        public  void addLast(int data){
+            Node newNode = new Node(data);
+            if(head == null){
+                head = newNode;
+                tail = newNode;
+            }
+            else{
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        public void display(){
+            Node temp = head;
+            while(temp != null){
+                System.out.print(temp.data + " " + "-->");
+                temp = temp.next;
+            }
+            if(temp == null){
+                System.out.print("null");
+            }
+            System.out.print("\n");
+        }
+
+        public void getFirst(){
+            System.out.println(head.data);
+            System.out.print("\n");
+        }
+
+        public void getLast(){
+            System.out.println(tail.data);
+            System.out.print("\n");
+        }
+
+        public void getAt(int index){
+            if(index<0){
+                System.out.println("index not valid");
+            }
+            int i = 0;
+            Node temp = head;
+            while(i<index){
+                if(temp == null){
+                    System.out.println("end limit reached");
+                    break;
+                }
+                temp = temp.next;
+                i++;
+            }
+            if((i == index)&&(temp!=null)){
+                System.out.println(temp.data);
+            }
+            System.out.print("\n");
+        }
+
+        public void getNodeAt(int index){
+            if(index<0){
+                System.out.println("index not valid");
+            }
+            int i = 0;
+            Node temp = head;
+            while(i<index){
+                if(temp == null){
+                    System.out.println("end limit reached");
+                    break;
+                }
+                temp = temp.next;
+                i++;
+            }
+            if((i == index)&&(temp!=null)){
+                System.out.print(temp.data);
+                System.out.print("|");
+                System.out.print("-->");
+            }
+            System.out.print("\n");
+        }
+
+        public void removeFirst(){
+            if(head == null){
+                System.out.println("empty linked list");
+            }
+            else{
+                Node temp = head.next;
+                head = temp;
+            }
+            System.out.print("\n");
+        }
+
+        public void removeLast(){
+            if(head == null){
+                System.out.println("empty linked list");
+            }
+            else{
+                Node current = head;
+                Node temp = null;
+                while(current != tail){
+                    temp = current;
+                    current = current.next;
+                }
+                tail = temp;
+                tail.next = null;
+            }
+        }
+
+        public void removeAt(int index){
+            if(index < 0){
+                System.out.println("invalid index");
+            }
+            else{
+                Node current = head;
+                Node temp = null;
+                int i =0;
+                while(i < index){
+                    temp = current;
+                    current = current.next;
+                    i++;
+                    if(current == null){
+                        System.out.println("end point reached");
+                        break;
+                    }
+                    if(i == index){
+                        temp.next = current.next;
+                    }
+                }
+            }
+            System.out.print("\n");
+        }
+
+        public void addAt(int index,int data){
+            Node newNode = new Node(data);
+            if(index < 0){
+                System.out.println("invalid index");
+            }
+            else{
+                Node current = head;
+                Node temp = null;
+                int i = 0;
+                while(i < index){
+                    temp = current;
+                    current = current.next;
+                    i++;
+                    if(current == null){
+                        System.out.println("end limit reached");
+                    }
+                    if(i == index){
+                        temp.next = newNode;
+                        newNode.next = current;
+                    }
+                }
+            }
+            System.out.print("\n");
+        }
+
+        public int size(){
+            Node current = head;
+            int i =0;
+            while(current != null) {
+                current = current.next;
+                i++;
+            }System.out.println(i);
+            return i;
+        }
+
+        public void midNode(LL l1){
+            int n = l1.size();
+            if(n == 0){
+                System.out.println("empty linked list");
+            }
+            if(n%2 == 0){
+                Node current = head;
+                Node temp = head;
+                while(current.next != tail){
+                    temp = temp.next;
+                    current = current.next.next;
+                }
+                if(current.next == tail){
+                    System.out.print(temp.data + "-->");
+                    System.out.print(temp.next.data + "-->");
+                }
+            } else if(n%2 != 0){
+                Node current = head;
+                Node temp = head;
+                while(current != tail){
+                    temp = temp.next;
+                    current = current.next.next;
+                }
+                if(current == tail){
+                    System.out.println(temp.data + "-->");
+                }
+            }
+            System.out.print("\n");
+        }
+
+        public void reverse(LL l1){
+            Node current = head;
+            int i = 0;
+            int n = l1.size();
+            int[] arr = new int[n];
+            while(current.next != null){
+                arr[i] = current.data;
+                current = current.next;
+                i++;
+            }
+            if(current.next == null){
+                arr[i] = current.data;
+            }
+            int m = arr.length-1;
+            Node temp = null;
+            temp = head;
+            while(m>=0) {
+                temp.data = arr[m];
+                temp = temp.next;
+                m--;
+            }
+            if(m==0){
+                tail = temp;
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        LL l1 = new LL();
+        l1.addFirst(12);
+        l1.addFirst(2);
+        l1.addLast(100);
+        l1.addLast(56);
+        l1.addLast(23);
+        l1.display();
+        System.out.println("first is ");
+        l1.getFirst();
+        System.out.println("last is ");
+        l1.getLast();
+        System.out.println("element at given index is ");
+        l1.getAt(2);
+        System.out.println("node at given index is ");
+        l1.getNodeAt(3);
+        l1.removeFirst();
+        l1.display();
+        l1.addFirst(133);
+        l1.removeLast();
+        l1.display();
+        l1.addFirst(12);
+        l1.display();
+        l1.removeAt(3);
+        l1.display();
+        l1.addAt(2,300);
+        l1.display();
+        System.out.println("middle node is ");
+        l1.midNode(l1);
+        l1.removeLast();
+        System.out.println("middle node is ");
+        l1.midNode(l1);
+        l1.addFirst(90);
+        l1.addFirst(89);
+        l1.addFirst(12);
+        l1.addFirst(67);
+        l1.addFirst(34);
+        l1.display();
+        l1.reverse(l1);
+        l1.display();
+    }
+}
